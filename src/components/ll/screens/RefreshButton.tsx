@@ -4,12 +4,14 @@ import Button from '@/components/Button';
 import RefreshIcon from '@/icons/RefreshIcon';
 
 interface Props extends Omit<React.HTMLProps<HTMLButtonElement>, 'type'> {
+  auto?: boolean;
   intervals?: number[];
   name: string;
   onClick: () => void | Promise<void>;
 }
 
 export default function RefreshButton({
+  auto = true,
   intervals = [1, 2, 3],
   name,
   onClick,
@@ -39,26 +41,34 @@ export default function RefreshButton({
       <Button {...props} title={`Refresh ${name}`} onClick={onClick}>
         <RefreshIcon />
       </Button>
-      <Button
-        title={`${autoSeconds ? 'Stop' : 'Start'} auto-refresh ${name}`}
-        onClick={() => setAutoSeconds(autoSeconds ? 0 : (intervals[0] ?? 3))}
-        color={autoSeconds ? 'bg-green-700 text-white' : undefined}
-      >
-        {autoSeconds ? `${autoSeconds}s` : 'Auto'}
-      </Button>
-      {autoSeconds > 0 && (
-        <select
-          aria-label={`Auto-refresh ${name} interval`}
-          className="h-9 rounded-lg border border-black/20 bg-white px-1 text-sm text-black"
-          value={autoSeconds}
-          onChange={event => setAutoSeconds(Number(event.currentTarget.value))}
-        >
-          {intervals.map(seconds => (
-            <option value={seconds} key={seconds}>
-              {seconds}s
-            </option>
-          ))}
-        </select>
+      {auto && (
+        <>
+          <Button
+            title={`${autoSeconds ? 'Stop' : 'Start'} auto-refresh ${name}`}
+            onClick={() =>
+              setAutoSeconds(autoSeconds ? 0 : (intervals[0] ?? 3))
+            }
+            color={autoSeconds ? 'bg-green-700 text-white' : undefined}
+          >
+            {autoSeconds ? `${autoSeconds}s` : 'Auto'}
+          </Button>
+          {autoSeconds > 0 && (
+            <select
+              aria-label={`Auto-refresh ${name} interval`}
+              className="h-9 rounded-lg border border-black/20 bg-white px-1 text-sm text-black"
+              value={autoSeconds}
+              onChange={event =>
+                setAutoSeconds(Number(event.currentTarget.value))
+              }
+            >
+              {intervals.map(seconds => (
+                <option value={seconds} key={seconds}>
+                  {seconds}s
+                </option>
+              ))}
+            </select>
+          )}
+        </>
       )}
     </>
   );

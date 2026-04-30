@@ -203,7 +203,7 @@ export default function BookExperience({
         <>
           <YourDayButton />
           <RefreshButton
-            intervals={[3, 5, 10]}
+            auto={false}
             onClick={() => {
               if (noEligible) {
                 return loadParty();
