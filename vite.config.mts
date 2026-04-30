@@ -1,16 +1,23 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
 import path from 'path';
 import { defineConfig } from 'vite';
 import obfuscatorPlugin from 'vite-plugin-javascript-obfuscator';
 
+const certPath = './tls/dev.cert';
+const keyPath = './tls/dev.key';
+
 const server = {
   host: '0.0.0.0',
   port: 3000,
-  https: {
-    cert: './tls/dev.cert',
-    key: './tls/dev.key',
-  },
+  https:
+    fs.existsSync(certPath) && fs.existsSync(keyPath)
+      ? {
+          cert: certPath,
+          key: keyPath,
+        }
+      : undefined,
   headers: {
     'Access-Control-Allow-Origin': '*',
   },
