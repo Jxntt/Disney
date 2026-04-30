@@ -4,11 +4,17 @@ import Button from '@/components/Button';
 import RefreshIcon from '@/icons/RefreshIcon';
 
 interface Props extends Omit<React.HTMLProps<HTMLButtonElement>, 'type'> {
+  intervals?: number[];
   name: string;
-  onClick: () => void;
+  onClick: () => void | Promise<void>;
 }
 
-export default function RefreshButton({ name, onClick, ...props }: Props) {
+export default function RefreshButton({
+  intervals = [1, 2, 3],
+  name,
+  onClick,
+  ...props
+}: Props) {
   const [autoSeconds, setAutoSeconds] = useState(0);
   const loading = useRef(false);
 
@@ -35,7 +41,7 @@ export default function RefreshButton({ name, onClick, ...props }: Props) {
       </Button>
       <Button
         title={`${autoSeconds ? 'Stop' : 'Start'} auto-refresh ${name}`}
-        onClick={() => setAutoSeconds(autoSeconds ? 0 : 3)}
+        onClick={() => setAutoSeconds(autoSeconds ? 0 : (intervals[0] ?? 3))}
         color={autoSeconds ? 'bg-green-700 text-white' : undefined}
       >
         {autoSeconds ? `${autoSeconds}s` : 'Auto'}
@@ -47,7 +53,7 @@ export default function RefreshButton({ name, onClick, ...props }: Props) {
           value={autoSeconds}
           onChange={event => setAutoSeconds(Number(event.currentTarget.value))}
         >
-          {[1, 2, 3].map(seconds => (
+          {intervals.map(seconds => (
             <option value={seconds} key={seconds}>
               {seconds}s
             </option>
