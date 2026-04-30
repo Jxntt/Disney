@@ -1,0 +1,58 @@
+import { avatarUrl } from '@/api/avatar';
+import { DasBooking, Experience } from '@/api/das';
+import { DateTime, ParkTime } from '@/datetime';
+import { TODAY } from '@/testing';
+
+import { mk, wdw } from './resort';
+
+export * from './resort';
+
+export const mickey = {
+  id: 'mickey',
+  name: 'Mickey Mouse',
+  avatarImageUrl: avatarUrl('17532228'),
+};
+
+export const minnie = {
+  id: 'minnie',
+  name: 'Minnie Mouse',
+  avatarImageUrl: avatarUrl('90004486'),
+};
+
+export const party = {
+  primaryGuest: mickey,
+  linkedGuests: [minnie],
+  selectionLimit: 4,
+};
+
+export const hm: Experience = {
+  ...wdw.experience('80010208'),
+  available: true,
+  time: new ParkTime(10, 30),
+};
+export const jc: Experience = {
+  ...wdw.experience('80010153'),
+  available: true,
+  time: new ParkTime(10, 45),
+};
+export const sm: Experience = {
+  ...wdw.experience('80010190'),
+  available: true,
+  time: new ParkTime(10, 40),
+};
+
+export const booking: DasBooking = {
+  type: 'DAS',
+  subtype: 'IN_PARK',
+  experience: hm,
+  facilityId: hm.id,
+  name: hm.name,
+  land: hm.land,
+  park: mk,
+  guests: [
+    { ...mickey, entitlementId: 'ent1' },
+    { ...minnie, entitlementId: 'ent2' },
+  ],
+  start: new DateTime(TODAY, new ParkTime(10, 30)),
+  id: 'hm1030',
+};
