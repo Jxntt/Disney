@@ -108,48 +108,20 @@
 
     <h2>How can I try it?</h2>
 
-    <p>There are now two different ways to install and use BG1: the original bookmarklet method and a new userscript method. The benefit of the userscript method is that it will automatically load the BG1 interface for you, as opposed to the manual activation required when you install BG1 as a bookmarklet. However, it requires installing a Web browser extension (and, in the case of Android, the Firefox browser) to enable support for userscripts. Choose whichever method you're more comfortable with.</p>
+    <p>There are two different ways to install and use BG1: the original bookmarklet method and a newer userscript method. I highly recommend installing BG1 as a userscript, since it automatically loads the BG1 interface for you every time, avoiding the manual procedure that people sometimes have issues with when running it as a bookmarklet.</p>
 
     <h2>iPhone Installation</h2>
-
-    <details id="safari-bookmarklet" class="instructions">
-      <summary>Bookmarklet Setup</summary>
-      <div>
-        <p>This installation method involves creating a bookmarklet, which is a bookmark that contains JavaScript code instead of a Web address. For a visual tutorial of the setup process, watch the <a href="https://www.youtube.com/watch?v=TLFZ4Le_LnY">BG1 Setup Guide on YouTube</a>.</p>
-
-        <h3>Creating the bookmarklet</h3>
-
-        <ol>
-          <li>Copy the bookmarklet code: <code class="bm-code"></code></li>
-          <li>If the bottom toolbar of Safari isn't already visible, tap at the bottom edge of the screen to bring it up.</li>
-          <li>Tap the share button (box with upward arrow) in the bottom toolbar, select Add to Favorites, and then save the bookmark.</li>
-          <li>Tap in the address bar to bring up your Favorites and find the BG1 Bookmarklet favorite.</li>
-          <li>Tap and hold on BG1 Bookmarklet and select Edit from the menu.</li>
-          <li>Replace the existing text in the address/URL field with the bookmarklet code you copied in Step 1 and save the bookmark.</li>
-        </ol>
-
-        <h3>Using the bookmarklet</h3>
-
-        <ol>
-          <li>Open a new tab and tap on BG1 Bookmarklet in your Favorites. This will load the BG1 Start page.</li>
-          <li>Select the service you wish to use.</li>
-          <li>The page that loads will just have some code on it. To load the BG1 interface, tap on the address bar to bring up your Favorites and tap on BG1 Bookmarklet again.</li>
-        </ol>
-
-        <div class="buttons"><button class="done">Done</button></div>
-      </div>
-    </details>
 
     <details id="safari-userscript" class="instructions">
       <summary>Userscript Setup</summary>
       <div>
-        <p><b>Note:</b> These instructions are for iOS 18. Check to see if your phone needs to be updated before installing BG1.</p>
+        <p><b>Note:</b> These instructions are for iOS 26. The exact steps may differ depending on your iOS version.</p>
 
-        <h3>Installing the Userscripts app</h3>
+        <h3>Installing the Userscripts extension</h3>
 
         <ol>
-          <li>Install <a href="https://apps.apple.com/us/app/userscripts/id1463298887">Userscripts</a> from the App Store.</li>
-          <li>Open the UserScripts app. You don't need to do anything in the app. It just needs to be opened once before the Safari extension will work.</li>
+          <li>Install <a href="https://apps.apple.com/us/app/userscripts/id1463298887">Userscripts</a> extension from the App Store.</li>
+          <li>Open <b>UserScripts</b>. You don't need to do anything in the app. It just needs to be opened once before the Safari extension will work.</li>
           <li>Go into the <b>Settings</b> app, type <kbd>extensions</kbd> into the search box at the top, and tap on the first suggestion (or go to <b>Apps</b> → <b>Safari</b> → <b>Extensions</b>).</li>
           <li>Under <b>Allow These Extensions</b>, tap on <b>Userscripts</b>.</li>
           <li>Enable the <b>Allow Extension</b> setting, and under <b>Permissions</b>, set <b>Other Websites</b> to <b>Allow</b>.</li>
@@ -157,18 +129,21 @@
 
         <h3>Installing the BG1 userscript</h3>
         <ol>
-          <li>Close Safari (<a href="https://support.apple.com/en-us/109359" title="How to close an iPhone app">instructions</a>) and reopen it.</li>
           <li>
             <a href="autoloader.user.js" title="BG1 autoloader userscript" target="_blank">Follow this link</a> (opens in new tab) to open the BG1 autoloader userscript.
           </li>
-          <li>Tap the <b>puzzle piece</b> icon on the left side of the address bar and then tap on <b>Userscripts</b> in the menu that pops up.</li>
-          <li>The Userscripts extension will detect the BG1 userscript. Tap the <b>"Tap to install"</b> link, then scroll to the bottom of the userscript details page and tap the <b>Install</b> button.</li>
+          <li>Open the <b>Page Menu</b> (icon on the left side of the address bar).
+          <li>Tap on <b>Userscripts</b> in the page.</li>
+          <li>The Userscripts extension will detect the BG1 userscript. Tap the <b>Tap to Install link</b>.</li>
+          <li>Scroll to the bottom of the userscript details page, and tap the <b>Install button</b>.</li>
         </ol>
 
         <h3>Bookmarking the BG1 Start page</h3>
         <ol>
           <li>Go to the <a href="start.html">BG1 Start</a> page.</li>
-          <li>Tap the <b>share button</b> (box with upward-pointing arrow) in the Safari toolbar and select <b>Add to Favorites</b>.</li>
+          <li>Open the <b>Page Menu</b>.</li>
+          <li>Tap the <b>three dots button</b> in the menu that pops up.</li>
+          <li>Select <b>Add to Favorites</b>, then save the bookmark.</li>
         </ol>
 
         <p>Now you're all set! To use BG1, just go to the <a href="start.html">BG1 Start</a> page and select the service you want to use.</p>
@@ -177,38 +152,40 @@
       </div>
     </details>
 
-    <h2>Android Installation</h2>
 
-    <details id="chrome" class="instructions">
-      <summary>Bookmarklet Setup (Chrome)</summary>
+    <details id="safari-bookmarklet" class="instructions">
+      <summary>Bookmarklet Setup</summary>
       <div>
-        <p>This installation method involves creating a bookmarklet, which is a bookmark that contains JavaScript code instead of a Web address. For a visual tutorial of the setup process, watch the <a href="https://www.youtube.com/watch?v=TkEqyxbnYfw">BG1 Setup Guide on YouTube</a>.</p>
-
-        <p>Please note that these instructions are only for the Chrome browser on Android. BG1 cannot be installed in the Samsung Internet Browser, as it no longer allows bookmarklets. If you wish to avoid using Chrome, you can set up BG1 in Firefox via the <a href="#firefox">userscript method</a>.</p>
-
+        <p><b>Note:</b> These instructions are for iOS 26. The exact steps may differ depending on your iOS version.</p>
 
         <h3>Creating the bookmarklet</h3>
 
         <ol>
           <li>Copy the bookmarklet code: <code class="bm-code"></code></li>
-          <li>Bookmark this page by tapping the three dots in the toolbar and then tapping the star icon in the menu.
-          </li>
-          <li>Open the three dots menu again and tap the star icon again to edit the bookmark you just created.</li>
-          <li>Replace the existing text in the address/URL field with the bookmarklet code you copied in Step 1 and save the bookmark.</li>
-          <li>Also bookmark the <a href="start.html">BG1 Start</a> page. You'll need to go there first each time before you use the bookmarklet.</li>
+          <li>If the bottom toolbar of Safari isn't already visible, tap at the <b>bottom edge</b> of the screen to bring it up.</li>
+          <li>Open the <b>Page Menu</b> (icon on the left side of the address bar).</li>
+          <li>Tap the <b>three dots button</b> in the menu that pops up.</li>
+          <li>Select <b>Add to Favorites</b>, then save the bookmark.</li>
+          <li>Tap in the <b>address bar</b> to bring up your Favorites.</li>
+          <li>Tap and hold on BG1 Bookmarklet and select <b>Edit</b> from the menu.</li>
+          <li>Replace the existing text in the address field with the bookmarklet code you copied in Step 1 and save the bookmark.</li>
         </ol>
 
         <h3>Using the bookmarklet</h3>
 
+        <p><b>Note:</b> The following steps must be taken every time you want to use BG1.</p>
+
         <ol>
-          <li>Search for <kbd>BG1 Start</kbd> in the Chrome address bar to go to the BG1 Start page.</li>
+          <li>Open a <b>new tab</b> and tap on <b>BG1 Bookmarklet</b> in your Favorites. This will load the BG1 Start page.</li>
           <li>Select the service you wish to use.</li>
-          <li>The page that loads will just have some code on it. To load the BG1 interface, search for <kbd>BG1 Bookmarklet</kbd> in the Chrome address bar.</li>
+          <li>The page that loads will have some meaningless (for our purposes) text. To load the BG1 interface, tap on the <b>address bar</b> to bring up your Favorites, and tap on <b>BG1 Bookmarklet</b> again.</li>
         </ol>
 
         <div class="buttons"><button class="done">Done</button></div>
       </div>
     </details>
+
+    <h2>Android Installation</h2>
 
     <details id="firefox" class="instructions">
       <summary>Userscript Setup (Firefox)</summary>
@@ -219,19 +196,55 @@
 
         <ol>
           <li>In Firefox, go to the <a href="start.html">BG1 Start</a> page.</li>
-          <li>Tap the <b>three dots menu</b> in the toolbar and then tap <b>Add to shortcuts</b>.</li>
+          <li>Tap the <b>three dots</b> menu in the toolbar.</li>
+          <li>Tap <b>More</b> to show additional menu options.</li>
+          <li>Tap <b>Add to shortcuts</b>.</li>
         </ol>
 
         <h3>Installing the BG1 autoloader userscript</h3>
 
         <ol>
-          <li>In Firefox, go to the <a href="https://addons.mozilla.org/en-US/android/addon/tampermonkey/">Tampermonkey Firefox extension page</a> and tap the <b>Add to Firefox</b> button. Follow the prompt to install the extension.</li>
-          <li>Tap the <b>Install BG1 Autoloader</b> button below to install the userscript in Tampermonkey. Tampermonkey will display information about the script and ask for confirmation that you wish to install it.</li>
+          <li>In Firefox, go to the <a href="https://addons.mozilla.org/en-US/android/addon/tampermonkey/">Tampermonkey Firefox extension page</a>.</li>
+          <li>Tap the <b>Add to Firefox button</b>, and follow the prompts to install the extension.</li>
+          <li>Tap the <b>Install BG1 Autoloader button</b> below. Tampermonkey will display information about the script and ask for confirmation that you wish to install it.</li>
+          <li>Tap the <b>Install button</b> to install the BG1 userscript.</li>
         </ol>
 
         <div class="buttons"><a href="autoloader.user.js">Install BG1 Autoloader</a></div>
 
         <p>That's it! To use BG1, just go to the <a href="start.html">BG1 Start</a> page and select the service you want to use.</p>
+
+        <div class="buttons"><button class="done">Done</button></div>
+      </div>
+    </details>
+
+    <details id="chrome" class="instructions">
+      <summary>Bookmarklet Setup (Chrome)</summary>
+      <div>
+        <p><b>Note:</b> These instructions are only for the Chrome browser on Android.</p>
+
+
+        <h3>Creating the bookmarklet</h3>
+
+        <ol>
+          <li>Copy the <b>bookmarklet code</b> in the gray box: <code class="bm-code"></code></li>
+          <li>Open the <b>three dots menu</b> in the toolbar.</li>
+          <li>Tap the <b>star button</b> in the menu to bookmark the page.</li>
+          <li>Open the <b>three dots menu</b> again.</li>
+          <li>Tap the <b>star button</b> again to edit the bookmark you just created.</li>
+          <li>Replace the existing text in the <b>URL field</b> with the <b>bookmarklet code</b> you copied in step 1. </li>
+          <li>Also <b>bookmark</b> the <a href="start.html">BG1 Start</a> page. You'll need to go there first each time before you use the bookmarklet.</li>
+        </ol>
+
+        <h3>Using the bookmarklet</h3>
+
+        <p><b>Note:</b> The following steps must be taken every time you want to use BG1.</p>
+
+        <ol>
+          <li>Search for <kbd>BG1 Start</kbd> in the Chrome <b>address bar</b> to go to the BG1 Start page.</li>
+          <li>Select the service you wish to use.</li>
+          <li>The page that loads will have some meaningless (for our purposes) text. To load the BG1 interface, search for <kbd>BG1 Bookmarklet</kbd> in the address bar, and tap on it.</li>
+        </ol>
 
         <div class="buttons"><button class="done">Done</button></div>
       </div>
@@ -316,7 +329,7 @@
       } else {
         document.title = originalTitle;
         document.body.classList.remove('noscroll');
-        history.replaceState(null, '', '.');
+        history.replaceState(null, '', location.pathname);
       }
     });
     details.querySelector('button.done').onclick = () => {
