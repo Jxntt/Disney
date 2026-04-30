@@ -111,11 +111,28 @@ export default function AutoBookProvider({
     }
 
     let cancelled = false;
-    const bookedIds = new Set(
-      plans
-        .filter(isLLMP)
-        .filter(b => b.start.date === bookingDate)
-        .map(b => b.experience.id)
+    const currentBookings = plans
+      .filter(isLLMP)
+      .filter(
+        b =>
+          b.start.date === bookingDate &&
+          !!b.cancellable &&
+          +b.end.time > +DateTime.now().time
+      );
+    const bookedIds = new Set(currentBookings.map(b => b.experience.id));
+    const bookingCountByGuestId = new Map<string, number>();
+    for (const booking of currentBookings) {
+      for (const guest of booking.guests) {
+        bookingCountByGuestId.set(
+          guest.id,
+          (bookingCountByGuestId.get(guest.id) ?? 0) + 1
+        );
+      }
+    }
+    const hasAvailableSlot = (guests: Guest[]) =>
+      guests.every(guest => (bookingCountByGuestId.get(guest.id) ?? 0) < 3);
+    const targetOrder = new Map(
+      config.targetIds.map((id, index) => [id, index])
     );
 
     async function checkOnce() {
@@ -129,7 +146,12 @@ export default function AutoBookProvider({
         const experiences = (await ll.experiences(park, bookingDate))
           .filter(isFlexExperience)
           .filter(exp => targetIds.has(exp.id))
-          .filter(exp => !bookedIds.has(exp.id));
+          .filter(exp => !bookedIds.has(exp.id))
+          .sort(
+            (a, b) =>
+              (targetOrder.get(a.id) ?? Infinity) -
+              (targetOrder.get(b.id) ?? Infinity)
+          );
 
         for (const experience of experiences) {
           if (
@@ -153,6 +175,14 @@ export default function AutoBookProvider({
             continue;
           }
           if (guests.length === 0) continue;
+          if (!hasAvailableSlot(guests)) {
+            setStatus({
+              lastChecked,
+              message: 'Party already has 3 active LLs',
+              running: true,
+            });
+            continue;
+          }
 
           try {
             const offer = await ll.offer(experience, guests, {

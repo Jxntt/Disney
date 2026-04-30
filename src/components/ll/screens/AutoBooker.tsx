@@ -24,10 +24,17 @@ export default function AutoBooker() {
     use(ExperiencesContext);
   const [draft, setDraft] = useState<AutoBookConfig>(config);
   const targetIds = new Set(draft.targetIds);
+  const targetOrder = new Map(draft.targetIds.map((id, i) => [id, i]));
   const targetExperiences = experiences
     .filter(isFlexExperience)
     .filter(exp => exp.park.id === park.id)
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort(
+      (a, b) =>
+        +!targetIds.has(a.id) - +!targetIds.has(b.id) ||
+        (targetOrder.get(a.id) ?? Infinity) -
+          (targetOrder.get(b.id) ?? Infinity) ||
+        a.name.localeCompare(b.name)
+    );
 
   useEffect(() => setDraft(config), [config]);
   useEffect(() => {
@@ -122,7 +129,8 @@ export default function AutoBooker() {
       <h2>Targets</h2>
       <p className="text-sm text-gray-600">
         Booking date: {bookingDate}. Today&apos;s cutoff is within{' '}
-        {draft.maxMinutesFromNow} minutes of <Time time={now} />.
+        {draft.maxMinutesFromNow} minutes of <Time time={now} />. Selected
+        targets are checked first, in the order you add them.
       </p>
 
       {targetExperiences.length === 0 ? (
@@ -140,6 +148,12 @@ export default function AutoBooker() {
                 <span className="flex-1 leading-tight">
                   <span className="block font-semibold">{exp.name}</span>
                   <span className="text-sm text-gray-600">
+                    {targetOrder.has(exp.id) && (
+                      <>
+                        Priority {(targetOrder.get(exp.id) ?? 0) + 1}
+                        {' | '}
+                      </>
+                    )}
                     Next LL:{' '}
                     {exp.flex.nextAvailableTime ? (
                       <Time time={exp.flex.nextAvailableTime} />
