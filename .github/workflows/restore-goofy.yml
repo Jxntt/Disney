@@ -1,0 +1,31 @@
+name: Restore Goofy Branch
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout goofy
+        uses: actions/checkout@v4
+        with:
+          ref: goofy
+          fetch-depth: 2
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Revert latest deploy commit
+        run: |
+          git revert --no-edit HEAD
+
+      - name: Push restored goofy
+        run: |
+          git push origin HEAD:goofy
