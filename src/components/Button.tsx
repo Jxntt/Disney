@@ -24,16 +24,26 @@ export default function Button<P>(
   return (
     <button
       onClick={async event => {
-        event.stopPropagation();
-        if (back) {
-          try {
-            await goBack(back === true ? undefined : back);
-          } catch (error) {
-            if (!(error instanceof NavError)) throw error;
-          }
-        }
-        if (onClick) await onClick();
-      }}
+
+  event.stopPropagation();
+
+  if (onClick) await onClick();
+
+  if (back) {
+
+    try {
+
+      await goBack(back === true ? undefined : back);
+
+    } catch (error) {
+
+      if (!(error instanceof NavError)) throw error;
+
+    }
+
+  }
+
+}}
       className={`${cls} inline-flex items-center justify-center min-w-9 px-1.75 font-semibold disabled:opacity-50`}
       {...attrs}
     />
