@@ -19,13 +19,38 @@ function isFlexExperience(exp: unknown): exp is FlexExperience {
   return !!(exp as FlexExperience).flex;
 }
 
+function loadSavedAutoBookConfig(config: AutoBookConfig): AutoBookConfig {
+  try {
+    const saved = JSON.parse(localStorage.getItem(AUTO_BOOK_KEY) || 'null');
+
+    if (!saved) return config;
+
+    return {
+      ...config,
+      ...saved,
+      targetIds: Array.isArray(saved.targetIds) ? saved.targetIds : [],
+      intervalSeconds: Number(saved.intervalSeconds) || config.intervalSeconds,
+      maxMinutesFromNow:
+        Number(saved.maxMinutesFromNow) || config.maxMinutesFromNow,
+      webhookUrl: typeof saved.webhookUrl === 'string' ? saved.webhookUrl : '',
+      enabled: !!saved.enabled,
+    };
+  } catch {
+    return config;
+  }
+}
+
 export default function AutoBooker() {
   const { config, saveConfig, status } = use(AutoBookContext);
   const { bookingDate } = use(BookingDateContext);
   const { park } = use(ParkContext);
   const { experiences, refreshExperiences, loaderElem } =
     use(ExperiencesContext);
-  const [draft, setDraft] = useState<AutoBookConfig>(config);
+
+  const [draft, setDraft] = useState<AutoBookConfig>(() =>
+    loadSavedAutoBookConfig(config)
+  );
+
   const targetIds = new Set(draft.targetIds);
   const targetOrder = new Map(draft.targetIds.map((id, i) => [id, i]));
   const targetExperiences = experiences
@@ -39,7 +64,10 @@ export default function AutoBooker() {
         a.name.localeCompare(b.name)
     );
 
-  useEffect(() => setDraft(config), [config]);
+  useEffect(() => {
+    setDraft(loadSavedAutoBookConfig(config));
+  }, [config]);
+
   useEffect(() => {
     if (targetExperiences.length === 0) refreshExperiences();
   }, [refreshExperiences, targetExperiences.length]);
@@ -52,6 +80,26 @@ export default function AutoBooker() {
     const ids = new Set(draft.targetIds);
     ids[ids.has(id) ? 'delete' : 'add'](id);
     update({ targetIds: [...ids] });
+  };
+
+  const save = () => {
+    const cleanDraft: AutoBookConfig = {
+      ...draft,
+      targetIds: Array.isArray(draft.targetIds) ? draft.targetIds : [],
+      intervalSeconds: Number(draft.intervalSeconds) || 3,
+      maxMinutesFromNow: Number(draft.maxMinutesFromNow) || 120,
+      webhookUrl: draft.webhookUrl || '',
+      enabled: !!draft.enabled,
+    };
+
+    localStorage.setItem(AUTO_BOOK_KEY, JSON.stringify(cleanDraft));
+    saveConfig(cleanDraft);
+
+    alert(
+      `Saved Auto Booker\nEnabled: ${cleanDraft.enabled}\nTargets: ${cleanDraft.targetIds.length}`
+    );
+
+    history.back();
   };
 
   const now = DateTime.now().time;
@@ -176,14 +224,7 @@ export default function AutoBooker() {
       {loaderElem}
       <FloatingButton
         disabled={draft.enabled && draft.targetIds.length === 0}
-        onClick={() => {
-          localStorage.setItem(AUTO_BOOK_KEY, JSON.stringify(draft));
-          saveConfig(draft);
-          alert(
-            `Saved Auto Booker\nEnabled: ${draft.enabled}\nTargets: ${draft.targetIds.length}`
-          );
-          history.back();
-        }}
+        onClick={save}
       >
         Save Auto Booker
       </FloatingButton>
