@@ -4,7 +4,10 @@ import { FlexExperience } from '@/api/ll';
 import FloatingButton from '@/components/FloatingButton';
 import Screen from '@/components/Screen';
 import { Time } from '@/components/Time';
-import AutoBookContext, { AutoBookConfig } from '@/contexts/AutoBookContext';
+import AutoBookContext, {
+  AUTO_BOOK_KEY,
+  AutoBookConfig,
+} from '@/contexts/AutoBookContext';
 import BookingDateContext from '@/contexts/BookingDateContext';
 import ExperiencesContext from '@/contexts/ExperiencesContext';
 import ParkContext from '@/contexts/ParkContext';
@@ -174,7 +177,11 @@ export default function AutoBooker() {
       <FloatingButton
         disabled={draft.enabled && draft.targetIds.length === 0}
         onClick={() => {
+          localStorage.setItem(AUTO_BOOK_KEY, JSON.stringify(draft));
           saveConfig(draft);
+          alert(
+            `Saved Auto Booker\nEnabled: ${draft.enabled}\nTargets: ${draft.targetIds.length}`
+          );
           history.back();
         }}
       >
