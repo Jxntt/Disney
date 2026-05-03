@@ -169,12 +169,22 @@ export default function AutoBooker() {
       )}
       {loaderElem}
       <FloatingButton
-        back
-        disabled={draft.enabled && draft.targetIds.length === 0}
-        onClick={() => saveConfig(draft)}
-      >
-        Save Auto Booker
-      </FloatingButton>
+
+  disabled={draft.enabled && draft.targetIds.length === 0}
+
+  onClick={() => {
+
+    saveConfig(draft);
+
+    history.back();
+
+  }}
+
+>
+
+  Save Auto Booker
+
+</FloatingButton
     </Screen>
   );
 }
